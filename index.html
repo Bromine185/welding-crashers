@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welding Crashers</title>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+  <div id="viewport"></div>
+
+  <div id="hud">
+    <div id="crosshair"></div>
+    <div id="hit-marker"></div>
+    <div id="vignette"></div>
+    <div id="weapon-name"></div>
+    <div id="resource-bar"><div id="resource-fill"></div></div>
+    <div id="health-bar"><div id="health-fill"></div></div>
+    <div id="objective-counter"></div>
+    <div id="interact-prompt"></div>
+    <div id="subtitle"></div>
+  </div>
+
+  <div id="start-screen">
+    <h1>WELDING CRASHERS</h1>
+    <p>You are the last engineer standing between this ship and the void. Boarders have cut the hull in five places and a saboteur is loose in Engineering. Weld the breaches. Stop the saboteur. Survive.</p>
+    <div id="controls-legend">WASD move &middot; Shift sprint &middot; Space jump &middot; Mouse look &middot; Click to weld/fire &middot; 1 Keyhole Welder &middot; 2 Arc Welder &middot; 3 Plasma Cutting Torch &middot; E talk to Captain</div>
+    <button id="start-button">Click to Weld</button>
+  </div>
+
+  <div id="game-over-screen" class="hidden">
+    <h1>HULL BREACHED</h1>
+    <p>The ship is lost.</p>
+    <button id="restart-lose">Try Again</button>
+  </div>
+
+  <div id="victory-screen" class="hidden">
+    <h1>SHIP SAVED</h1>
+    <p>Every breach sealed. The saboteur is down. Good work, engineer.</p>
+    <button id="restart-win">Play Again</button>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

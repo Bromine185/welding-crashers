@@ -3,13 +3,18 @@ export class InputManager {
     this.domElement = domElement;
 
     this._keys = new Set();
-    this._prevKeys = new Set();
     this._justPressed = new Set();
+    // accumulates edges between update() calls so a keydown+keyup pair that
+    // completes within a single animation frame (e.g. a fast synthetic
+    // press, or a frame hitch) still registers as a press that frame,
+    // instead of being missed by diffing two once-per-frame state snapshots.
+    this._pendingJustPressed = new Set();
 
     this._mouseDelta = { x: 0, y: 0 };
     this._leftMouseDown = false;
 
     this._onKeyDown = (e) => {
+      if (!this._keys.has(e.code)) this._pendingJustPressed.add(e.code);
       this._keys.add(e.code);
     };
     this._onKeyUp = (e) => {
@@ -47,11 +52,8 @@ export class InputManager {
   }
 
   update() {
-    this._justPressed.clear();
-    for (const code of this._keys) {
-      if (!this._prevKeys.has(code)) this._justPressed.add(code);
-    }
-    this._prevKeys = new Set(this._keys);
+    this._justPressed = this._pendingJustPressed;
+    this._pendingJustPressed = new Set();
   }
 
   isDown(code) {
