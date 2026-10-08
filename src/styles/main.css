@@ -1,0 +1,239 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  font-family: "Courier New", monospace;
+  color: #dff;
+  width: 100%;
+  height: 100%;
+}
+
+#viewport {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+#viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px;
+  border-radius: 50%;
+  background: rgba(200, 255, 255, 0.8);
+  box-shadow: 0 0 6px rgba(120, 220, 255, 0.9);
+}
+
+#hit-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px;
+  border: 2px solid #ff4433;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+#hit-marker.show {
+  opacity: 1;
+}
+
+#vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 160px 40px rgba(255, 0, 0, 0);
+  transition: box-shadow 0.4s;
+}
+
+#vignette.low-hp {
+  box-shadow: inset 0 0 160px 40px rgba(255, 0, 0, 0.55);
+  animation: pulse-vignette 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-vignette {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+#weapon-name {
+  position: absolute;
+  left: 24px;
+  bottom: 86px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8fe;
+}
+
+#resource-bar, #health-bar {
+  position: absolute;
+  left: 24px;
+  width: 220px;
+  height: 14px;
+  border: 1px solid #4aa;
+  background: rgba(10, 20, 25, 0.6);
+}
+
+#resource-bar {
+  bottom: 62px;
+}
+
+#health-bar {
+  bottom: 26px;
+}
+
+#resource-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #2aa, #6ff);
+  transition: width 0.1s linear;
+}
+
+#resource-bar.overheated #resource-fill {
+  background: #f44;
+  animation: blink-overheat 0.3s steps(2) infinite;
+}
+
+@keyframes blink-overheat {
+  50% { opacity: 0.3; }
+}
+
+#health-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #2a6, #6f6);
+  transition: width 0.15s linear;
+}
+
+#objective-counter {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ccf;
+  text-align: right;
+}
+
+#interact-prompt {
+  position: absolute;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #ffd;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 14px;
+  border: 1px solid #886;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#interact-prompt.show {
+  opacity: 1;
+}
+
+#subtitle {
+  position: absolute;
+  bottom: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 70vw;
+  text-align: center;
+  font-size: 15px;
+  color: #eef;
+  background: rgba(0, 10, 20, 0.55);
+  padding: 6px 16px;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#subtitle.show {
+  opacity: 1;
+}
+
+#start-screen, #game-over-screen, #victory-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(ellipse at center, #091018, #000);
+  gap: 16px;
+  padding: 24px;
+}
+
+#start-screen h1, #game-over-screen h1, #victory-screen h1 {
+  font-size: 42px;
+  letter-spacing: 6px;
+  color: #9ef;
+  text-shadow: 0 0 18px #3cf;
+  margin: 0;
+}
+
+#start-screen p, #game-over-screen p, #victory-screen p {
+  max-width: 560px;
+  color: #bcd;
+  line-height: 1.5;
+  margin: 0;
+}
+
+#controls-legend {
+  max-width: 640px;
+  font-size: 12px;
+  color: #789;
+  line-height: 1.6;
+}
+
+button#start-button, button#restart-lose, button#restart-win {
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  background: #133;
+  color: #aef;
+  border: 1px solid #4cd;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #255;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#game-over-screen h1 {
+  color: #f66;
+  text-shadow: 0 0 18px #c22;
+}
+
+#victory-screen h1 {
+  color: #9f6;
+  text-shadow: 0 0 18px #4c2;
+}
